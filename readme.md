@@ -1,4 +1,4 @@
-# 基于Java的商城网站系统设计与实现
+# 基于Java的图书借阅管理系统设计与实现
 
 
 ### 功能介绍
@@ -7,8 +7,8 @@
 
 整个平台包括前台和后台两个部分。
 
-- 前台功能包括：首页、商品详情页、订单、用户中心模块。
-- 后台功能包括：总览、订单管理、商品管理、分类管理、标签管理、评论管理、用户管理、运营管理、日志管理、系统信息模块。
+- 前台功能包括：首页、图书详情页、借阅中心、用户中心模块。
+- 后台功能包括：总览、借阅管理、图书管理、分类管理、标签管理、评论管理、用户管理、运营管理、日志管理、系统信息模块。
 
 ### 适合人群
 
@@ -16,9 +16,7 @@ java初级学员、大学生、系统设计人员
 
 ### 演示地址
 
-前台地址： http://1.117.171.66:8004/#/index
-
-后台地址：http://1.117.171.66:8004/#/admin
+http://1.117.171.66:8003/#/admin
 
 后台管理帐号：
 
@@ -38,15 +36,15 @@ java初级学员、大学生、系统设计人员
 
 (2) 配置application.yml文件，配置数据库和upload根目录
 
-(3) 安装mysql 5.7数据库，并创建数据库，命名为java_shop，创建SQL如下：
+(3) 安装mysql 5.7数据库，并创建数据库，命名为java_book，创建SQL如下：
 ```
-CREATE DATABASE IF NOT EXISTS java_shop DEFAULT CHARSET utf8 COLLATE utf8_general_ci
+CREATE DATABASE IF NOT EXISTS java_book DEFAULT CHARSET utf8 COLLATE utf8_general_ci
 ```
 (4) 恢复sql数据。在mysql下依次执行如下命令：
 
 ```
-mysql> use java_shop;
-mysql> source D:/xxx/xxx/shop.sql;
+mysql> use java_book;
+mysql> source D:/xxx/xxx/xxx.sql;
 ```
 
 (5) 启动后端服务：点击IDEA顶部run按钮
@@ -70,12 +68,12 @@ npm run dev
 
 首页
 
-![](https://raw.githubusercontent.com/geeeeeeeek/shop/master/server/upload/img/a.png)
+ 
 
 
 后台页面
 
-![](https://raw.githubusercontent.com/geeeeeeeek/shop/master/server/upload/img/b.png)
+ 
 
 
 
