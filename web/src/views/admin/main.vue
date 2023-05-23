@@ -3,7 +3,7 @@
     <a-layout-header style="background: #fff; padding: 0">
       <div class="header">
         <img class="header-logo" :src="logo">
-        <span class="header-title">商城后台管理系统</span>
+        <span class="header-title">图书借阅管理系统</span>
         <div class="empty"></div>
         <a-button style="margin-right: 24px;" @click="handlePreview">前台预览</a-button>
         <span>管理员[{{ userStore.admin_user_name }}]</span>
@@ -11,15 +11,24 @@
       </div>
     </a-layout-header>
     <a-layout>
-      <a-layout-sider v-model="collapsed" collapsible >
-        <a-menu style="overflow:auto; overflow-x: hidden;" v-model:selectedKeys="selectedKeys" theme="light" mode="inline" @click="handleClick">
+      <a-layout-sider v-model="collapsed" collapsible>
+        <a-menu style="overflow:auto; overflow-x: hidden;" v-model:selectedKeys="selectedKeys" theme="light"
+                mode="inline" @click="handleClick">
           <a-menu-item key="overview">
             <home-outlined/>
             <span>总览</span>
           </a-menu-item>
-          <a-menu-item key="user">
-            <user-outlined/>
-            <span>用户管理</span>
+          <a-menu-item key="borrow">
+            <control-outlined/>
+            <span>借阅管理</span>
+          </a-menu-item>
+          <a-menu-item key="thing">
+            <database-outlined/>
+            <span>图书管理</span>
+          </a-menu-item>
+          <a-menu-item key="comment">
+            <comment-outlined/>
+            <span>评论管理</span>
           </a-menu-item>
           <a-menu-item key="classification">
             <layout-outlined/>
@@ -29,17 +38,9 @@
             <tag-outlined/>
             <span>标签管理</span>
           </a-menu-item>
-          <a-menu-item key="order">
-            <dollar-outlined/>
-            <span>订单管理</span>
-          </a-menu-item>
-          <a-menu-item key="thing">
-            <database-outlined/>
-            <span>商品管理</span>
-          </a-menu-item>
-          <a-menu-item key="comment">
-            <comment-outlined/>
-            <span>评论管理</span>
+          <a-menu-item key="user">
+            <user-outlined/>
+            <span>用户管理</span>
           </a-menu-item>
           <a-sub-menu>
             <template #icon>
@@ -98,6 +99,7 @@ import {
   CommentOutlined,
   InfoCircleOutlined,
   TagOutlined,
+  ControlOutlined,
   PieChartOutlined,
   DollarOutlined,
   LayoutOutlined,
@@ -122,7 +124,7 @@ const handleClick = ({item, key, keyPath}) => {
   })
 }
 
-const handlePreview = ()=>{
+const handlePreview = () => {
   let text = router.resolve({name: 'index'})
   window.open(text.href, '_blank')
 }

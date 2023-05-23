@@ -2,7 +2,7 @@
   <div class="content">
     <div class="content-left">
       <div class="left-search-item">
-        <h4>商品分类</h4>
+        <h4>图书分类</h4>
         <a-tree :tree-data="contentData.cData" :selected-keys="contentData.selectedKeys" @select="onSelect"
                 style="min-height: 220px;">
         </a-tree>

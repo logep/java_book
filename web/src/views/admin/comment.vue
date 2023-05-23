@@ -9,14 +9,14 @@
         </a-space>
       </div>
       <a-table
-          size="middle"
-          rowKey="id"
-          :loading="data.loading"
-          :columns="columns"
-          :data-source="data.list"
-          :scroll="{ x: 'max-content' }"
-          :row-selection="rowSelection"
-          :pagination="{
+        size="middle"
+        rowKey="id"
+        :loading="data.loading"
+        :columns="columns"
+        :data-source="data.list"
+        :scroll="{ x: 'max-content' }"
+        :row-selection="rowSelection"
+        :pagination="{
           size: 'default',
           current: data.page,
           pageSize: data.pageSize,
@@ -28,7 +28,7 @@
         <template #bodyCell="{ text, record, index, column }">
           <template v-if="column.key === 'operation'">
             <span>
-              <a-divider type="vertical"/>
+              <a-divider type="vertical" />
               <a-popconfirm title="确定删除?" ok-text="是" cancel-text="否" @confirm="confirmDelete(record)">
                 <a href="#">删除</a>
               </a-popconfirm>
@@ -61,7 +61,7 @@ const columns = reactive([
     align: 'center'
   },
   {
-    title: '商品名称',
+    title: '图书名称',
     dataIndex: 'title',
     key: 'title',
     align: 'center'

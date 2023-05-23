@@ -6,18 +6,18 @@
         <a-space>
           <a-button type="primary" @click="handleAdd">新增</a-button>
           <a-button @click="handleBatchDelete">批量删除</a-button>
-          <a-input-search addon-before="名称" enter-button @search="onSearch" @change="onSearchChange" />
+          <a-input-search addon-before="图书名称" enter-button @search="onSearch" @change="onSearchChange" />
         </a-space>
       </div>
       <a-table
-          size="middle"
-          rowKey="id"
-          :loading="data.loading"
-          :columns="columns"
-          :data-source="data.dataList"
-          :scroll="{ x: 'max-content' }"
-          :row-selection="rowSelection"
-          :pagination="{
+        size="middle"
+        rowKey="id"
+        :loading="data.loading"
+        :columns="columns"
+        :data-source="data.dataList"
+        :scroll="{ x: 'max-content' }"
+        :row-selection="rowSelection"
+        :pagination="{
           size: 'default',
           current: data.page,
           pageSize: data.pageSize,
@@ -43,38 +43,38 @@
     <!--弹窗区域-->
     <div>
       <a-modal
-          :visible="modal.visile"
-          :forceRender="true"
-          :title="modal.title"
-          width="880px"
-          ok-text="确认"
-          cancel-text="取消"
-          @cancel="handleCancel"
-          @ok="handleOk"
+        :visible="modal.visile"
+        :forceRender="true"
+        :title="modal.title"
+        width="880px"
+        ok-text="确认"
+        cancel-text="取消"
+        @cancel="handleCancel"
+        @ok="handleOk"
       >
         <div>
           <a-form ref="myform" :label-col="{ style: { width: '80px' } }" :model="modal.form" :rules="modal.rules">
             <a-row :gutter="24">
               <a-col span="24">
                 <a-form-item label="商品名称" name="title">
-                  <a-input placeholder="请输入" v-model:value="modal.form.title"></a-input>
+                  <a-input placeholder="请输入" v-model:value="modal.form.title" />
                 </a-form-item>
               </a-col>
               <a-col span="12">
                 <a-form-item label="分类" name="classificationId">
-                  <a-select placeholder="请选择"
-                            allowClear
-                            :options="modal.cData"
-                            :field-names="{ label: 'title', value: 'id',}"
-                            v-model:value="modal.form.classificationId">
-                  </a-select>
+                  <a-select
+                    placeholder="请选择"
+                    allowClear
+                    :options="modal.cData"
+                    :field-names="{ label: 'title', value: 'id',}"
+                    v-model:value="modal.form.classificationId" />
                 </a-form-item>
               </a-col>
               <a-col span="12">
                 <a-form-item label="标签">
                   <a-select mode="multiple" placeholder="请选择" allowClear v-model:value="modal.form.tags">
                     <template v-for="item in modal.tagData">
-                      <a-select-option :value="item.id">{{item.title}}</a-select-option>
+                      <a-select-option :value="item.id">{{ item.title }}</a-select-option>
                     </template>
                   </a-select>
                 </a-form-item>
@@ -82,15 +82,15 @@
               <a-col span="24">
                 <a-form-item label="封面">
                   <a-upload-dragger
-                      name="file"
-                      accept="image/*"
-                      :multiple="false"
-                      :before-upload="beforeUpload"
-                      v-model:file-list="fileList"
+                    name="file"
+                    accept="image/*"
+                    :multiple="false"
+                    :before-upload="beforeUpload"
+                    v-model:file-list="fileList"
                   >
                     <p class="ant-upload-drag-icon">
                       <template v-if="modal.form.coverUrl">
-                        <img :src="modal.form.coverUrl"  style="width: 60px;height: 80px;"/>
+                        <img :src="modal.form.coverUrl" style="width: 60px;height: 80px;" />
                       </template>
                       <template v-else>
                         <file-image-outlined />
@@ -105,12 +105,12 @@
 
               <a-col span="24">
                 <a-form-item label="内容简介">
-                  <a-textarea placeholder="请输入" v-model:value="modal.form.description"></a-textarea>
+                  <a-textarea placeholder="请输入" v-model:value="modal.form.description" />
                 </a-form-item>
               </a-col>
               <a-col span="12">
                 <a-form-item label="定价" name="price">
-                  <a-input-number  placeholder="请输入" :min="0" v-model:value="modal.form.price" style="width: 100%;"></a-input-number>
+                  <a-input-number placeholder="请输入" :min="0" v-model:value="modal.form.price" style="width: 100%;" />
                 </a-form-item>
               </a-col>
               <a-col span="12">
@@ -123,7 +123,7 @@
               </a-col>
               <a-col span="12">
                 <a-form-item label="库存" name="repertory">
-                  <a-input-number placeholder="请输入" :min="0" v-model:value="modal.form.repertory" style="width: 100%;"></a-input-number>
+                  <a-input-number placeholder="请输入" :min="0" v-model:value="modal.form.repertory" style="width: 100%;" />
                 </a-form-item>
               </a-col>
             </a-row>
@@ -154,11 +154,6 @@ const columns = reactive([
     title: '名称',
     dataIndex: 'title',
     key: 'title'
-  },
-  {
-    title: '价格',
-    dataIndex: 'price',
-    key: 'price'
   },
   {
     title: '状态',

@@ -42,6 +42,12 @@
         <a-descriptions-item label="Java版本">
           {{ data.jvmVersion }}
         </a-descriptions-item>
+        <a-descriptions-item label="mysql版本">
+          5.7.20
+        </a-descriptions-item>
+        <a-descriptions-item label="Nginx版本">
+          1.20.1
+        </a-descriptions-item>
         <a-descriptions-item label="系统时区">
           {{ data.sysZone }}
         </a-descriptions-item>

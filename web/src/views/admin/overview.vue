@@ -306,7 +306,7 @@ const initPieChart = () => {
       bottom: '40px'
     },
     title: {
-      text: '热门商品分类',
+      text: '热门图书分类',
       textStyle: {
         color: '#aaa',
         fontStyle: 'normal',
