@@ -56,7 +56,7 @@
           <a-form ref="myform" :label-col="{ style: { width: '80px' } }" :model="modal.form" :rules="modal.rules">
             <a-row :gutter="24">
               <a-col span="24">
-                <a-form-item label="商品名称" name="title">
+                <a-form-item label="图书名称" name="title">
                   <a-input placeholder="请输入" v-model:value="modal.form.title" />
                 </a-form-item>
               </a-col>
@@ -104,13 +104,47 @@
               </a-col>
 
               <a-col span="24">
-                <a-form-item label="内容简介">
+                <a-form-item label="图书简介">
                   <a-textarea placeholder="请输入" v-model:value="modal.form.description" />
                 </a-form-item>
               </a-col>
               <a-col span="12">
-                <a-form-item label="定价" name="price">
-                  <a-input-number placeholder="请输入" :min="0" v-model:value="modal.form.price" style="width: 100%;" />
+                <a-form-item label="作者">
+                  <a-input placeholder="请输入" v-model:value="modal.form.author"></a-input>
+                </a-form-item>
+              </a-col>
+              <a-col span="12">
+                <a-form-item label="译者">
+                  <a-input placeholder="请输入" v-model:value="modal.form.translator"></a-input>
+                </a-form-item>
+              </a-col>
+              <a-col span="12">
+                <a-form-item label="ISBN">
+                  <a-input placeholder="请输入" v-model:value="modal.form.isbn"></a-input>
+                </a-form-item>
+              </a-col>
+              <a-col span="12">
+                <a-form-item label="定价">
+                  <a-input placeholder="请输入" v-model:value="modal.form.price"></a-input>
+                </a-form-item>
+              </a-col>
+              <a-col span="12">
+                <a-form-item label="出版社">
+                  <a-input placeholder="请输入" v-model:value="modal.form.press"></a-input>
+                </a-form-item>
+              </a-col>
+<!--              <a-col span="12">-->
+<!--                <a-form-item label="出版日期">-->
+<!--                  <a-date-picker style="width:100%;" placeholder="请输入" v-model:value="modal.form.pubDate"/>-->
+<!--                </a-form-item>-->
+<!--              </a-col>-->
+              <a-col span="12">
+                <a-form-item label="装帧">
+                  <a-select placeholder="请选择" allowClear v-model:value="modal.form.layout">
+                    <a-select-option key="平装" value="平装">平装</a-select-option>
+                    <a-select-option key="精装" value="精装">精装</a-select-option>
+                    <a-select-option key="其它" value="其它">其它</a-select-option>
+                  </a-select>
                 </a-form-item>
               </a-col>
               <a-col span="12">
@@ -122,8 +156,13 @@
                 </a-form-item>
               </a-col>
               <a-col span="12">
+                <a-form-item label="页数">
+                  <a-input-number placeholder="请输入" :min="0" v-model:value="modal.form.pageCount" style="width: 100%;"></a-input-number>
+                </a-form-item>
+              </a-col>
+              <a-col span="12">
                 <a-form-item label="库存" name="repertory">
-                  <a-input-number placeholder="请输入" :min="0" v-model:value="modal.form.repertory" style="width: 100%;" />
+                  <a-input-number placeholder="请输入" :min="0" v-model:value="modal.form.repertory" style="width: 100%;"></a-input-number>
                 </a-form-item>
               </a-col>
             </a-row>
@@ -156,10 +195,24 @@ const columns = reactive([
     key: 'title'
   },
   {
-    title: '状态',
-    dataIndex: 'status',
-    key: 'status',
-    customRender: ({ text, record, index, column }) => text === '0' ? '上架' : '下架'
+    title: '作者',
+    dataIndex: 'author',
+    key: 'author'
+  },
+  {
+    title: 'isbn',
+    dataIndex: 'isbn',
+    key: 'isbn'
+  },
+  {
+    title: '出版社',
+    dataIndex: 'press',
+    key: 'press'
+  },
+  {
+    title: '装帧',
+    dataIndex: 'layout',
+    key: 'layout'
   },
   {
     title: '库存',
@@ -171,6 +224,12 @@ const columns = reactive([
     dataIndex: 'description',
     key: 'description',
     customRender: ({ text, record, index, column }) => text ? text.substring(0, 10) + '...' : '--'
+  },
+  {
+    title: '状态',
+    dataIndex: 'status',
+    key: 'status',
+    customRender: ({ text, record, index, column }) => text === '0' ? '上架' : '下架'
   },
   {
     title: '操作',
@@ -217,7 +276,12 @@ const modal = reactive({
     classificationId: undefined,
     tags: [],
     repertory: undefined,
+    author: undefined,
+    translator: undefined,
+    press: undefined,
     price: undefined,
+    pubDate: undefined,
+    pageCount: undefined,
     status: undefined,
     cover: undefined,
     coverUrl: undefined,
@@ -372,7 +436,11 @@ const handleOk = () => {
           formData.append('imageFile', modal.form.imageFile)
         }
         formData.append('description', modal.form.description || '')
-        formData.append('price', modal.form.price || '')
+        formData.append('author', modal.form.author || '')
+        formData.append('translator', modal.form.translator || '')
+        formData.append('press', modal.form.press || '')
+        formData.append('pubDate', modal.form.pubDate || '')
+        formData.append('pageCount', modal.form.pageCount || '')
         if (modal.form.repertory >= 0) {
           formData.append('repertory', modal.form.repertory)
         }

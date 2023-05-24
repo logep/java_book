@@ -30,7 +30,19 @@ public class Thing implements Serializable {
     @TableField
     public String repertory;
     @TableField
+    public String isbn;
+    @TableField
+    public String layout;
+    @TableField
+    public String author;
+    @TableField
+    public String press;
+    @TableField
+    public String pubDate;
+    @TableField
     public String score;
+    @TableField
+    public String pageCount;
     @TableField
     public String pv;
     @TableField
