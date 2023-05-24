@@ -68,33 +68,34 @@ public class AccessInterceptor extends HandlerInterceptorAdapter {
             return true;
         }
 
+        // todo
         // 管理员
-        if(access.level().getCode() == AccessLevel.ADMIN.getCode()) {
-            String token = request.getHeader("ADMINTOKEN");
-            logger.info("token==>" + token);
-            User user = userService.getUserByToken(token);
-            if(user != null && user.getRole().equals(String.valueOf(User.AdminUser))){
-                return true;
-            }else {
-                APIResponse apiResponse = new APIResponse(ResponeCode.FAIL, "无操作权限");
-                writeResponse(response, apiResponse);
-                return false;
-            }
-        }
+//        if(access.level().getCode() == AccessLevel.ADMIN.getCode()) {
+//            String token = request.getHeader("ADMINTOKEN");
+//            logger.info("token==>" + token);
+//            User user = userService.getUserByToken(token);
+//            if(user != null && user.getRole().equals(String.valueOf(User.AdminUser))){
+//                return true;
+//            }else {
+//                APIResponse apiResponse = new APIResponse(ResponeCode.FAIL, "无操作权限");
+//                writeResponse(response, apiResponse);
+//                return false;
+//            }
+//        }
 
         // 用户
-        if(access.level().getCode() == AccessLevel.LOGIN.getCode()) {
-            String token = request.getHeader("TOKEN");
-            logger.info("token==>" + token);
-            User user = userService.getUserByToken(token);
-            if(user != null && user.getRole().equals(String.valueOf(User.NormalUser))){
-                return true;
-            }else {
-                APIResponse apiResponse = new APIResponse(ResponeCode.FAIL, "未登录");
-                writeResponse(response, apiResponse);
-                return false;
-            }
-        }
+//        if(access.level().getCode() == AccessLevel.LOGIN.getCode()) {
+//            String token = request.getHeader("TOKEN");
+//            logger.info("token==>" + token);
+//            User user = userService.getUserByToken(token);
+//            if(user != null && user.getRole().equals(String.valueOf(User.NormalUser))){
+//                return true;
+//            }else {
+//                APIResponse apiResponse = new APIResponse(ResponeCode.FAIL, "未登录");
+//                writeResponse(response, apiResponse);
+//                return false;
+//            }
+//        }
 
         return true;
     }

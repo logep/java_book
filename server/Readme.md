@@ -10,15 +10,16 @@
 
 ### 后端部署流程
 
-1. 配置端口 位于application.yml
-2. 配置DB_NAME 位于application.yml
-3. 配置BASE_LOCATION 位于application.yml
-4. 修改logback-spring.xml下的LOG_HOME的value值
-5. maven clean -> maven package
-6. 将jar包复制到服务器
-7. 将upload文件夹复制到服务器
-8. 迁移mysql数据库
-9. 运行启动jar包命令
+* 配置端口 位于application.yml
+* 配置DB_NAME 位于application.yml
+* 配置BASE_LOCATION 位于application.yml
+* 关闭swagger配置 位于application.yml
+* 修改logback-spring.xml下的LOG_HOME的value值
+* maven clean -> maven package
+* 将jar包复制到服务器
+* 将upload文件夹复制到服务器
+* 迁移mysql数据库
+* 运行启动jar包命令
 
 ### 运行jar命令（或双击start.sh）
 

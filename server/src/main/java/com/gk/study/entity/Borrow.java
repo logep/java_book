@@ -9,32 +9,24 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-@TableName("b_order")
-public class Order implements Serializable {
+@TableName("b_borrow")
+public class Borrow implements Serializable {
     @TableId(value = "id",type = IdType.AUTO)
     public Long id;
     @TableField
     public String status;
     @TableField
-    public String orderTime;
+    public String borrowTime;
     @TableField
-    public String payTime;
+    public String returnTime;
+    @TableField
+    public String expectTime;
     @TableField
     public String thingId;
     @TableField
     public String userId;
     @TableField
-    public String count;
-    @TableField
-    public String orderNumber; // 订单编号
-    @TableField
-    public String receiverAddress;
-    @TableField
-    public String receiverName;
-    @TableField
-    public String receiverPhone;
-    @TableField
-    public String remark;
+    public String delayed;
 
     @TableField(exist = false)
     public String username; // 用户名
@@ -42,7 +34,5 @@ public class Order implements Serializable {
     public String title; // 商品名称
     @TableField(exist = false)
     public String cover; // 商品封面
-    @TableField(exist = false)
-    public String price; // 商品价格
 
 }

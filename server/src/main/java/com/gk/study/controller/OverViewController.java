@@ -4,10 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.sun.management.OperatingSystemMXBean;
 import com.gk.study.common.APIResponse;
 import com.gk.study.common.ResponeCode;
-import com.gk.study.entity.Order;
 import com.gk.study.entity.Thing;
 import com.gk.study.entity.VisitData;
-import com.gk.study.mapper.OrderMapper;
 import com.gk.study.mapper.OverviewMapper;
 import com.gk.study.mapper.ThingMapper;
 import org.apache.commons.lang3.time.DateUtils;
@@ -29,9 +27,6 @@ public class OverViewController {
 
     @Autowired
     ThingMapper thingMapper;
-
-    @Autowired
-    OrderMapper orderMapper;
 
     @Autowired
     OverviewMapper overviewMapper;
@@ -79,85 +74,85 @@ public class OverViewController {
         Map<String, Object> map = new HashMap<>();
 
         // 商品总数
-        QueryWrapper<Thing> queryWrapper = new QueryWrapper<>();
-        long spzs = thingMapper.selectCount(queryWrapper);
-        map.put("spzs", spzs);
-
-        long now = System.currentTimeMillis();
-        long sevenMillis = now - 7 * 24 * 60 * 60 * 1000; // 7天前
-        System.out.println(sevenMillis);
-
-        // 七日新增
-        queryWrapper.ge("create_time", sevenMillis);
-        long qrxz = thingMapper.selectCount(queryWrapper);
-        map.put("qrxz", qrxz);
-
-        // 未付订单
-        QueryWrapper<Order> orderQueryWrapper = new QueryWrapper<>();
-        orderQueryWrapper.eq("status", "1");
-        long wfdd = orderMapper.selectCount(orderQueryWrapper);
-        map.put("wfdd", wfdd);
-
-        // 未付订单人数
-        orderQueryWrapper = new QueryWrapper<>();
-        orderQueryWrapper.select("distinct user_id");
-        orderQueryWrapper.eq("status", "1");
-        orderQueryWrapper.groupBy("user_id");
-        map.put("wfddrs", orderMapper.selectList(orderQueryWrapper).size());
-
-        // 已付订单
-        orderQueryWrapper = new QueryWrapper<>();
-        orderQueryWrapper.eq("status", "2");
-        long yfdd = orderMapper.selectCount(orderQueryWrapper);
-        map.put("yfdd", yfdd);
-
-        // 已付订单人数
-        orderQueryWrapper = new QueryWrapper<>();
-        orderQueryWrapper.select("distinct user_id");
-        orderQueryWrapper.eq("status", "2");
-        orderQueryWrapper.groupBy("user_id");
-        map.put("yfddrs", orderMapper.selectList(orderQueryWrapper).size());
-
-        // 取消订单
-        orderQueryWrapper = new QueryWrapper<>();
-        orderQueryWrapper.eq("status", "7");
-        long qxdd = orderMapper.selectCount(orderQueryWrapper);
-        map.put("qxdd", qxdd);
-
-        // 取消订单人数
-        orderQueryWrapper = new QueryWrapper<>();
-        orderQueryWrapper.select("distinct user_id");
-        orderQueryWrapper.eq("status", "7");
-        orderQueryWrapper.groupBy("user_id");
-        map.put("qxddrs", orderMapper.selectList(orderQueryWrapper).size());
-
-
-        // 热门商品
-        List<Object> popularThings = overviewMapper.getPopularThing();
-        map.put("popularThings", popularThings);
-
-        // 热门分类
-        List<Object> popularClassification = overviewMapper.getPopularClassification();
-        map.put("popularClassification", popularClassification);
-
-        // 网站流量
-        List<Object> visitList = new ArrayList<>();
-        List<String> sevenList = getSevenDate();
-        for(String day: sevenList){
-            Map<String, String> visitMap = new HashMap<>();
-            visitMap.put("day", day);
-            int pv = 0;
-            int uv = 0;
-            List<VisitData> webVisitData = overviewMapper.getWebVisitData(day);
-            for(VisitData visitData: webVisitData) {
-                pv += visitData.count;
-            }
-            uv = webVisitData.size();
-            visitMap.put("pv", String.valueOf(pv));
-            visitMap.put("uv", String.valueOf(uv));
-            visitList.add(visitMap);
-        }
-        map.put("visitList", visitList);
+//        QueryWrapper<Thing> queryWrapper = new QueryWrapper<>();
+//        long spzs = thingMapper.selectCount(queryWrapper);
+//        map.put("spzs", spzs);
+//
+//        long now = System.currentTimeMillis();
+//        long sevenMillis = now - 7 * 24 * 60 * 60 * 1000; // 7天前
+//        System.out.println(sevenMillis);
+//
+//        // 七日新增
+//        queryWrapper.ge("create_time", sevenMillis);
+//        long qrxz = thingMapper.selectCount(queryWrapper);
+//        map.put("qrxz", qrxz);
+//
+//        // 未付订单
+//        QueryWrapper<Order> orderQueryWrapper = new QueryWrapper<>();
+//        orderQueryWrapper.eq("status", "1");
+//        long wfdd = orderMapper.selectCount(orderQueryWrapper);
+//        map.put("wfdd", wfdd);
+//
+//        // 未付订单人数
+//        orderQueryWrapper = new QueryWrapper<>();
+//        orderQueryWrapper.select("distinct user_id");
+//        orderQueryWrapper.eq("status", "1");
+//        orderQueryWrapper.groupBy("user_id");
+//        map.put("wfddrs", orderMapper.selectList(orderQueryWrapper).size());
+//
+//        // 已付订单
+//        orderQueryWrapper = new QueryWrapper<>();
+//        orderQueryWrapper.eq("status", "2");
+//        long yfdd = orderMapper.selectCount(orderQueryWrapper);
+//        map.put("yfdd", yfdd);
+//
+//        // 已付订单人数
+//        orderQueryWrapper = new QueryWrapper<>();
+//        orderQueryWrapper.select("distinct user_id");
+//        orderQueryWrapper.eq("status", "2");
+//        orderQueryWrapper.groupBy("user_id");
+//        map.put("yfddrs", orderMapper.selectList(orderQueryWrapper).size());
+//
+//        // 取消订单
+//        orderQueryWrapper = new QueryWrapper<>();
+//        orderQueryWrapper.eq("status", "7");
+//        long qxdd = orderMapper.selectCount(orderQueryWrapper);
+//        map.put("qxdd", qxdd);
+//
+//        // 取消订单人数
+//        orderQueryWrapper = new QueryWrapper<>();
+//        orderQueryWrapper.select("distinct user_id");
+//        orderQueryWrapper.eq("status", "7");
+//        orderQueryWrapper.groupBy("user_id");
+//        map.put("qxddrs", orderMapper.selectList(orderQueryWrapper).size());
+//
+//
+//        // 热门商品
+//        List<Object> popularThings = overviewMapper.getPopularThing();
+//        map.put("popularThings", popularThings);
+//
+//        // 热门分类
+//        List<Object> popularClassification = overviewMapper.getPopularClassification();
+//        map.put("popularClassification", popularClassification);
+//
+//        // 网站流量
+//        List<Object> visitList = new ArrayList<>();
+//        List<String> sevenList = getSevenDate();
+//        for(String day: sevenList){
+//            Map<String, String> visitMap = new HashMap<>();
+//            visitMap.put("day", day);
+//            int pv = 0;
+//            int uv = 0;
+//            List<VisitData> webVisitData = overviewMapper.getWebVisitData(day);
+//            for(VisitData visitData: webVisitData) {
+//                pv += visitData.count;
+//            }
+//            uv = webVisitData.size();
+//            visitMap.put("pv", String.valueOf(pv));
+//            visitMap.put("uv", String.valueOf(uv));
+//            visitList.add(visitMap);
+//        }
+//        map.put("visitList", visitList);
 
         return new APIResponse(ResponeCode.SUCCESS, "查询成功", map);
     }
