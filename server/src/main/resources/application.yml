@@ -5,6 +5,11 @@ server.servlet.context-path: /api
 BASE_LOCATION: D:\projects\java_book
 DB_NAME: java_book
 
+springfox:
+  documentation:
+    swagger-ui:
+      # 生产环境需要关闭
+      enabled: true
 
 spring:
   datasource:

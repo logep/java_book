@@ -91,6 +91,11 @@ https://blog.csdn.net/cylcjsg/article/details/128102776?
 
 见CorsConfig.java
 
+### swagger配置
+
+https://juejin.cn/post/6959877018892959775
+
+
 
 
 
