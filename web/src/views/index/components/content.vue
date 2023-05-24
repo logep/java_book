@@ -3,15 +3,16 @@
     <div class="content-left">
       <div class="left-search-item">
         <h4>图书分类</h4>
-        <a-tree :tree-data="contentData.cData" :selected-keys="contentData.selectedKeys" @select="onSelect"
-                style="min-height: 220px;">
-        </a-tree>
+        <a-tree
+          :tree-data="contentData.cData" :selected-keys="contentData.selectedKeys" @select="onSelect"
+          style="min-height: 220px;" />
       </div>
       <div class="left-search-item"><h4>热门标签</h4>
         <div class="tag-view tag-flex-view">
-            <span class="tag" :class="{'tag-select': contentData.selectTagId===item.id}"
-                  v-for="item in contentData.tagData" :key="item.id"
-                  @click="clickTag(item.id)">{{ item.title }}</span>
+          <span
+            class="tag" :class="{'tag-select': contentData.selectTagId===item.id}"
+            v-for="item in contentData.tagData" :key="item.id"
+            @click="clickTag(item.id)">{{ item.title }}</span>
         </div>
       </div>
     </div>
@@ -19,36 +20,54 @@
       <div class="top-select-view flex-view">
         <div class="order-view">
           <span class="title"></span>
-          <span class="tab"
-                :class="contentData.selectTabIndex===index? 'tab-select':''"
-                v-for="(item,index) in contentData.tabData"
-                :key="index"
-                @click="selectTab(index)">
+          <span
+            class="tab"
+            :class="contentData.selectTabIndex===index? 'tab-select':''"
+            v-for="(item,index) in contentData.tabData"
+            :key="index"
+            @click="selectTab(index)">
             {{ item }}
           </span>
           <span :style="{left: contentData.tabUnderLeft + 'px'}" class="tab-underline"></span>
         </div>
       </div>
       <a-spin :spinning="contentData.loading" style="min-height: 200px;">
-        <div class="pc-thing-list flex-view">
-          <div v-for="item in contentData.pageData" :key="item.id" @click="handleDetail(item)"
-               class="thing-item item-column-3"><!---->
+<!--        <div class="pc-thing-list flex-view">-->
+<!--          <div-->
+<!--            v-for="item in contentData.pageData" :key="item.id" @click="handleDetail(item)"-->
+<!--            class="thing-item item-column-3">&lt;!&ndash;&ndash;&gt;-->
+<!--            <div class="img-view">-->
+<!--              <img :src="item.cover" /></div>-->
+<!--            <div class="info-view">-->
+<!--              <h3 class="thing-name">{{ item.title.substring(0, 12) }}</h3>-->
+<!--              <span>-->
+<!--                <span class="a-price-symbol">¥</span>-->
+<!--                <span class="a-price">{{ item.price }}</span>-->
+<!--              </span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div v-if="contentData.pageData.length <= 0 && !contentData.loading" class="no-data" style="">暂无数据</div>-->
+<!--        </div>-->
+
+        <div class="pc-book-list flex-view">
+          <div v-for="item in contentData.pageData" :key="item.id" @click="handleDetail(item)" class="book-item item-column-3"><!---->
             <div class="img-view">
-              <img :src="item.cover"></div>
-            <div class="info-view">
-              <h3 class="thing-name">{{ item.title.substring(0, 12) }}</h3>
-              <span>
-                <span class="a-price-symbol">¥</span>
-                <span class="a-price">{{ item.price }}</span>
-              </span>
+              <img :src="item.cover"/>
             </div>
+            <div class="info-view">
+              <h3 class="book-name">{{item.title}}</h3>
+              <p class="authors"> item.author </p>
+              <p class="translators" v-if="item"> item.translator （译者）</p></div>
           </div>
           <div v-if="contentData.pageData.length <= 0 && !contentData.loading" class="no-data" style="">暂无数据</div>
         </div>
+
+
       </a-spin>
       <div class="page-view" style="">
-        <a-pagination v-model="contentData.page" size="small" @change="changePage" :hideOnSinglePage="true"
-                      :defaultPageSize="contentData.pageSize" :total="contentData.total" :showSizeChanger="false"/>
+        <a-pagination
+          v-model="contentData.page" size="small" @change="changePage" :hideOnSinglePage="true"
+          :defaultPageSize="contentData.pageSize" :total="contentData.total" :showSizeChanger="false" />
       </div>
     </div>
   </div>
@@ -456,6 +475,92 @@ li {
     }
 
   }
+
+  .pc-book-list {
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+
+    .book-item {
+      min-width: 255px;
+      max-width: 255px;
+      position: relative;
+      flex: 1;
+      margin-right: 20px;
+      height: fit-content;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 16px;
+      cursor: pointer;
+
+      .img-view {
+        background: #eaf1f5;
+        font-size: 0;
+        text-align: center;
+        height: 156px;
+        padding: 8px 0;
+
+        img {
+          height: 100%;
+          display: block;
+          margin: 0 auto;
+          border-radius: 4px;
+          -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+        }
+      }
+
+      .info-view {
+        background: #f6f9fb;
+        text-align: center;
+        height: 108px;
+        overflow: hidden;
+        padding: 0 16px;
+
+        h3 {
+          color: #1c355a;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 20px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          margin: 12px 0 8px;
+        }
+
+        .authors {
+          color: #6f6f6f;
+          font-size: 12px;
+          line-height: 14px;
+          margin-top: 4px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        .translators {
+          color: #6f6f6f;
+          font-size: 12px;
+          line-height: 14px;
+          margin-top: 4px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+    }
+
+    .no-data {
+      height: 200px;
+      line-height: 200px;
+      text-align: center;
+      width: 100%;
+      font-size: 16px;
+      color: #152844;
+    }
+  }
+
 
   .pc-thing-list {
     -ms-flex-wrap: wrap;

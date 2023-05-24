@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from 'vue-router';
+import {createRouter, createWebHistory} from 'vue-router';
 import root from './root';
 
 import { ADMIN_USER_TOKEN, USER_TOKEN } from '/@/store/constants'
@@ -12,7 +12,7 @@ const adminLoginRoutePath = '/adminLogin'
 
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes: root,
 });
 

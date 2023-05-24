@@ -18,10 +18,8 @@
                 <img :src="item.cover"></div>
               <div class="info-view">
                 <h3 class="thing-name">{{ item.title.substring(0, 12) }}</h3>
-                <span>
-                  <span class="a-price-symbol">¥</span>
-                  <span class="a-price">{{ item.price }}</span>
-                </span>
+                <p class="authors"> {{item.author}} </p>
+
               </div>
             </div>
           </div>

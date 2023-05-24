@@ -12,9 +12,9 @@ export default ({ command }: ConfigEnv): UserConfig => {
   const isBuild = command === 'build';
   let base: string;
   if (command === 'build') {
-    base = './';
+    base = '/';
   } else {
-    base = './';
+    base = '/';
   }
   return {
     base,

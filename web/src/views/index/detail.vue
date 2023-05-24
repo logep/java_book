@@ -12,26 +12,22 @@
               </div>
               <div class="thing-info-box">
                 <div class="thing-state">
-                  <span class="state hidden-sm">商品状态</span>
-                  <span>上市销售</span>
+                  <span class="state hidden-sm">图书状态</span>
+                  <span>可借</span>
                 </div>
-                <h1 class="thing-name">{{ detailData.title }}</h1>
-                <span>
-                  <span class="a-price-symbol">¥</span>
-                  <span class="a-price">{{detailData.price}}</span>
-                </span>
+                <h2 class="thing-name">{{ detailData.title }}</h2>
+                <div class="translators flex-view" style="">
+                  <span>作者：</span>
+                  <span class="name">{{ detailData.author }}</span>
+                </div>
+                <div class="translators flex-view" style="">
+                  <span>译者：</span>
+                  <span class="name">{{ detailData.translator }}</span>
+                </div>
                 <div class="translators flex-view" style="">
                   <span>分类：</span>
-                  <span class="name">{{ detailData.classification_title }}</span>
+                  <span class="name">{{  }}</span>
                 </div>
-                <div class="translators flex-view" style="">
-                  <span>库存：</span>
-                  <span class="name">{{ detailData.repertory }}</span>
-                </div>
-                <button class="buy-btn" @click="handleOrder(detailData)">
-                  <img :src="AddIcon" />
-                  <span>立即购买</span>
-                </button>
               </div>
             </div>
             <div class="thing-counts hidden-sm">
@@ -77,6 +73,33 @@
               </div>
             </div>
           </div>
+          <div class="buy-way hidden-sm">
+            <div class="title">借阅区域</div>
+            <div class="flex-view">
+              <div class="buy-way-item" style="">
+                <div class="name">
+                  <span>库存：detailData.repertory</span>
+                </div>
+                <div class="price">
+                  <!--                  <span  class="price-text">¥ 34.9</span>-->
+                  <!---->
+                  <a-popconfirm
+                      title="确定借阅？"
+                      ok-text="是"
+                      cancel-text="否"
+                      @confirm="handleBorrow(detailData)"
+                  >
+                    <button class="buy-btn">
+                      <img :src="AddIcon" />
+                      <span>借阅</span>
+                    </button>
+
+                  </a-popconfirm>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
       <div class="detail-content-bottom">
@@ -149,10 +172,6 @@
                   <img :src="item.cover"></div>
                 <div class="info-view">
                   <h3 class="thing-name">{{ item.title.substring(0, 12)}}</h3>
-                  <span>
-                    <span class="a-price-symbol">¥</span>
-                    <span class="a-price">{{item.price}}</span>
-                  </span>
                 </div>
               </div>
             </div>
@@ -450,7 +469,7 @@ const sortCommentList =(sortType)=> {
     line-height: 32px;
     margin: 16px 0;
     color: #0F1111!important;
-    font-size: 15px!important;
+    font-size: 24px!important;
     font-weight: 400!important;
     font-style: normal!important;
     text-transform: none!important;
@@ -583,6 +602,7 @@ const sortCommentList =(sortType)=> {
   vertical-align: middle;
 }
 
+
 .buy-way {
   overflow: hidden;
 
@@ -594,7 +614,65 @@ const sortCommentList =(sortType)=> {
     color: #152844;
     margin-bottom: 12px;
   }
+
+  .buy-way-item {
+    background: #fbfeff;
+    border: 1px solid #cedce4;
+    border-radius: 4px;
+    -webkit-box-flex: 0;
+    margin-right: 20px;
+    -ms-flex: 0 0 255px;
+    flex: 0 0 255px;
+    padding: 10px;
+
+    .name {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+      color: #152844;
+      height: 24px;
+      margin-bottom: 12px;
+    }
+
+    .price {
+      position: relative;
+      line-height: 24px;
+    }
+
+    .price-text {
+      color: #ff7b31;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .buy-btn {
+      cursor: pointer;
+      display: block;
+      background: #4684e2;
+      border-radius: 4px;
+      text-align: center;
+      color: #fff;
+      font-size: 14px;
+      height: 32px;
+      line-height: 32px;
+      width: 76px;
+      outline: none;
+      border: none;
+      margin-top: 12px;
+    }
+
+    .buy-btn img {
+      width: 12px;
+      margin-right: 2px;
+      vertical-align: middle;
+    }
+
+    .buy-btn span {
+      vertical-align: middle;
+    }
+  }
 }
+
 
 .thing-content-view {
   margin-top: 40px;
