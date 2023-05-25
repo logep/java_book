@@ -30,6 +30,8 @@ public class Thing implements Serializable {
     @TableField
     public String repertory;
     @TableField
+    public String translator;
+    @TableField
     public String isbn;
     @TableField
     public String layout;

@@ -278,6 +278,7 @@ const modal = reactive({
     repertory: undefined,
     author: undefined,
     translator: undefined,
+    isbn: undefined,
     press: undefined,
     price: undefined,
     pubDate: undefined,
@@ -438,6 +439,8 @@ const handleOk = () => {
         formData.append('description', modal.form.description || '')
         formData.append('author', modal.form.author || '')
         formData.append('translator', modal.form.translator || '')
+        formData.append('isbn', modal.form.isbn || '')
+        formData.append('layout', modal.form.layout || '')
         formData.append('press', modal.form.press || '')
         formData.append('pubDate', modal.form.pubDate || '')
         formData.append('pageCount', modal.form.pageCount || '')
