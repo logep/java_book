@@ -31,11 +31,11 @@ java -jar -Xms64m -Xmx128m -XX:MetaspaceSize=64m -XX:MaxMetaspaceSize=64m xxxxx.
 
 删除数据库命令：
 
-drop database if exists book;
+drop database if exists java_book;
 
 创建数据库命令：
 
-CREATE DATABASE IF NOT EXISTS book DEFAULT CHARSET utf8 COLLATE utf8_general_ci;
+CREATE DATABASE IF NOT EXISTS java_book DEFAULT CHARSET utf8 COLLATE utf8_general_ci;
 
 数据库备份命令:
 
