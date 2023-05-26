@@ -12,7 +12,7 @@ public interface BorrowService {
 
     void updateBorrow(Borrow borrow);
 
-    List<Borrow> getUserBorrowList(String userId);
+    List<Borrow> getUserBorrowList(String userId, String status);
 
     Borrow detail(Long id);
 }

@@ -31,11 +31,11 @@
       </div>
     </div>
     <div class="order-box">
-      <div class="title">订单中心</div>
+      <div class="title">借阅中心</div>
       <div class="list">
-        <div class="mine-item flex-view" @click="clickMenu('orderView')">
+        <div class="mine-item flex-view" @click="clickMenu('borrowView')">
           <img :src="MyOrderImg">
-          <span>我的订单</span>
+          <span>我的借阅</span>
         </div>
         <div class="mine-item flex-view" @click="clickMenu('commentView')">
           <img :src="CommentIconImg">

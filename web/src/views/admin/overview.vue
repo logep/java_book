@@ -4,7 +4,7 @@
     <div class="main">
       <a-row :gutter="[20,20]">
         <a-col :sm="24" :md="12" :lg="6">
-          <a-card size="small" title="商品总数">
+          <a-card size="small" title="图书总数">
             <template #extra>
               <a-tag color="blue" slot="extra">总</a-tag>
             </template>
@@ -21,13 +21,13 @@
         </a-col>
 
         <a-col :sm="24" :md="12" :lg="6">
-          <a-card size="small" title="未付订单">
+          <a-card size="small" title="在借图书">
             <template #extra>
-              <a-tag color="green">未付</a-tag>
+              <a-tag color="green">借</a-tag>
             </template>
             <div class="box">
               <div class="box-top">
-                <span class="box-value">{{ tdata.data.wfdd }}<span class="v-e">单</span></span>
+                <span class="box-value">{{ tdata.data.wfdd }}<span class="v-e">本</span></span>
               </div>
               <div class="box-bottom">
                 <span>共 {{ tdata.data.wfddrs }} 人</span>
@@ -37,13 +37,13 @@
         </a-col>
 
         <a-col :sm="24" :md="12" :lg="6">
-          <a-card size="small" title="已付订单">
+          <a-card size="small" title="已还图书">
             <template #extra>
-              <a-tag color="blue" slot="extra">已付</a-tag>
+              <a-tag color="blue" slot="extra">还</a-tag>
             </template>
             <div class="box">
               <div class="box-top">
-                <span class="box-value">{{ tdata.data.yfdd }}<span class="v-e">单</span></span>
+                <span class="box-value">{{ tdata.data.yfdd }}<span class="v-e">本</span></span>
               </div>
               <div class="box-bottom">
                 <span>共 {{ tdata.data.yfddrs }} 人</span>
@@ -53,15 +53,15 @@
         </a-col>
 
         <a-col :sm="24" :md="12" :lg="6">
-          <a-card size="small" title="取消订单">
+          <a-card size="small" title="延期图书">
 
             <template #extra>
-              <a-tag color="green" slot="extra">取消</a-tag>
+              <a-tag color="green" slot="extra">延</a-tag>
             </template>
 
             <div class="box">
               <div class="box-top">
-                <span class="box-value">{{ tdata.data.qxdd }}<span class="v-e">单</span></span>
+                <span class="box-value">{{ tdata.data.qxdd }}<span class="v-e">本</span></span>
               </div>
               <div class="box-bottom">
                 <span>共 {{ tdata.data.qxddrs }} 人</span>
@@ -77,7 +77,7 @@
 
       <a-row :gutter="[20,20]">
         <a-col :sm="24" :md="24" :lg="12">
-          <a-card title="热门商品排名" style="flex:1;">
+          <a-card title="热门图书排名" style="flex:1;">
             <div style="height: 300px;" ref="barChartDiv"></div>
           </a-card>
         </a-col>
@@ -229,7 +229,7 @@ const initBarChart = () => {
       bottom: '40px'
     },
     title: {
-      text: '热门商品排名',
+      text: '热门图书排名',
       textStyle: {
         color: '#aaa',
         fontStyle: 'normal',

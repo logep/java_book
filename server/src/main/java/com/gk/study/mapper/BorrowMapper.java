@@ -11,5 +11,5 @@ public interface BorrowMapper extends BaseMapper<Borrow> {
 
     List<Borrow> getList();
 
-    List<Borrow> getUserBorrowList(String userId);
+    List<Borrow> getUserBorrowList(String userId, String status);
 }

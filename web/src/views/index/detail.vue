@@ -78,11 +78,9 @@
             <div class="flex-view">
               <div class="buy-way-item" style="">
                 <div class="name">
-                  <span>库存：detailData.repertory</span>
+                  <span>库存：{{detailData.repertory}}</span>
                 </div>
                 <div class="price">
-                  <!--                  <span  class="price-text">¥ 34.9</span>-->
-                  <!---->
                   <a-popconfirm
                       title="确定借阅？"
                       ok-text="是"
@@ -198,6 +196,7 @@ import {
   listApi as listThingList,
 } from '/@/api/thing'
 import {listThingCommentsApi, createApi as createCommentApi, likeApi} from '/@/api/comment'
+import {createApi as createBorrowApi} from '/@/api/borrow'
 import {wishApi} from '/@/api/thingWish'
 import {collectApi} from '/@/api/thingCollect'
 import {BASE_URL} from "/@/store/constants";
@@ -274,17 +273,18 @@ const share =()=> {
   let shareHref = 'http://service.weibo.com/share/share.php?title=' + content
   window.open(shareHref)
 }
-const handleOrder =(detailData)=> {
+const handleBorrow =(detailData)=> {
   console.log(detailData)
   const userId = userStore.user_id
-  router.push({name: 'confirm',
-    query:
-        {
-          id: detailData.id,
-          title: detailData.title,
-          cover: detailData.cover,
-          price: detailData.price
-        }})
+  createBorrowApi({
+    thingId: detailData.id,
+    userId: userId
+  }).then(res => {
+    message.success("借阅成功")
+    getThingDetail()
+  }).catch(err => {
+    message.error(err.msg || '操作失败s')
+  })
 }
 const getRecommendThing =()=> {
   listThingList({sort: 'recommend'}).then(res => {

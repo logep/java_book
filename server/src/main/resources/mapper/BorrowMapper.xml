@@ -19,6 +19,9 @@
         <if test="userId != null">
             and A.user_id=#{userId}
         </if>
+        <if test="status != null and status != ''">
+            and A.status=#{status}
+        </if>
         order by A.borrow_time desc;
     </select>
 

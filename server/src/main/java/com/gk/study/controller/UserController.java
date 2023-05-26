@@ -68,6 +68,9 @@ public class UserController {
         user.setPassword(DigestUtils.md5DigestAsHex((user.getPassword() + salt).getBytes()));
         User responseUser =  userService.getNormalUser(user);
         if(responseUser != null) {
+            // 加积分
+            responseUser.setScore(String.valueOf(Integer.parseInt(responseUser.getScore()) + 10));
+            userService.updateUser(responseUser);
             return new APIResponse(ResponeCode.SUCCESS, "查询成功", responseUser);
         }else {
             return new APIResponse(ResponeCode.FAIL, "用户名或密码错误");

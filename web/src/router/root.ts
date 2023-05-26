@@ -32,16 +32,6 @@ const constantRouterMap = [
         component: () => import('/@/views/index/detail.vue')
       },
       {
-        path: 'confirm',
-        name: 'confirm',
-        component: () => import('/@/views/index/confirm.vue')
-      },
-      {
-        path: 'pay',
-        name: 'pay',
-        component: () => import('/@/views/index/pay.vue')
-      },
-      {
         path: 'search',
         name: 'search',
         component: () => import('/@/views/index/search.vue')
@@ -68,14 +58,9 @@ const constantRouterMap = [
             component: () => import('/@/views/index/user/collect-thing-view.vue')
           },
           {
-            path: 'orderView',
-            name: 'orderView',
-            component: () => import('/@/views/index/user/order-view.vue')
-          },
-          {
-            path: 'orderView',
-            name: 'orderView',
-            component: () => import('/@/views/index/user/order-view.vue')
+            path: 'borrowView',
+            name: 'borrowView',
+            component: () => import('/@/views/index/user/borrow-view.vue')
           },
           {
             path: 'userInfoEditView',

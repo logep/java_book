@@ -32,22 +32,6 @@
         </div>
       </div>
       <a-spin :spinning="contentData.loading" style="min-height: 200px;">
-<!--        <div class="pc-thing-list flex-view">-->
-<!--          <div-->
-<!--            v-for="item in contentData.pageData" :key="item.id" @click="handleDetail(item)"-->
-<!--            class="thing-item item-column-3">&lt;!&ndash;&ndash;&gt;-->
-<!--            <div class="img-view">-->
-<!--              <img :src="item.cover" /></div>-->
-<!--            <div class="info-view">-->
-<!--              <h3 class="thing-name">{{ item.title.substring(0, 12) }}</h3>-->
-<!--              <span>-->
-<!--                <span class="a-price-symbol">¥</span>-->
-<!--                <span class="a-price">{{ item.price }}</span>-->
-<!--              </span>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <div v-if="contentData.pageData.length <= 0 && !contentData.loading" class="no-data" style="">暂无数据</div>-->
-<!--        </div>-->
 
         <div class="pc-book-list flex-view">
           <div v-for="item in contentData.pageData" :key="item.id" @click="handleDetail(item)" class="book-item item-column-3"><!---->
@@ -56,8 +40,8 @@
             </div>
             <div class="info-view">
               <h3 class="book-name">{{item.title}}</h3>
-              <p class="authors"> item.author </p>
-              <p class="translators" v-if="item"> item.translator （译者）</p></div>
+              <p class="authors"> {{item.author}} </p>
+              <p class="translators" v-if="item.translator"> {{item.translator}} （译者）</p></div>
           </div>
           <div v-if="contentData.pageData.length <= 0 && !contentData.loading" class="no-data" style="">暂无数据</div>
         </div>

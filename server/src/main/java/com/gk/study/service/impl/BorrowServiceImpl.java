@@ -38,8 +38,8 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
     }
 
     @Override
-    public List<Borrow> getUserBorrowList(String userId) {
-        return mapper.getUserBorrowList(userId);
+    public List<Borrow> getUserBorrowList(String userId, String status) {
+        return mapper.getUserBorrowList(userId, status);
     }
 
     @Override

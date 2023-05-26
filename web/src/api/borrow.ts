@@ -4,6 +4,7 @@ import { UserState } from '/@/store/modules/user/types';
 // import axios from 'axios';
 enum URL {
     list = '/api/borrow/list',
+    userList = '/api/borrow/userBorrowList',
     returnBorrow = '/api/borrow/returnBorrow',
     returnUserBorrow = '/api/borrow/returnUserBorrow',
     delayBorrow = '/api/borrow/delayBorrow',
@@ -12,6 +13,7 @@ enum URL {
 }
 
 const listApi = async (params: any) => get<any>({ url: URL.list, params: params, data: {}, headers: {} });
+const userBorrowListApi = async (params: any) => get<any>({ url: URL.userList, params: params, data: {}, headers: {} });
 const createApi = async (data: any) =>
     post<any>({ url: URL.create, params: {}, data: data, headers: { 'Content-Type': 'multipart/form-data;charset=utf-8' } });
 const returnBorrowApi = async (params: any) =>
@@ -24,4 +26,4 @@ const delayUserBorrowApi = async (params: any) =>
     post<any>({ url: URL.delayUserBorrow, params: params, headers: { 'Content-Type': 'multipart/form-data;charset=utf-8' } });
 
 
-export { listApi, createApi, returnBorrowApi, returnUserBorrowApi, delayBorrowApi, delayUserBorrowApi };
+export { listApi, userBorrowListApi, createApi, returnBorrowApi, returnUserBorrowApi, delayBorrowApi, delayUserBorrowApi };

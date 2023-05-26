@@ -18,6 +18,7 @@
             </div>
           </div>
         </div>
+        <a-empty v-if="wishData.length<=0" style="min-height: 200px;margin-top: 120px;"/>
       </div>
     </div>
   </div>

@@ -1,35 +1,44 @@
 <template>
   <div class="content-list">
-    <div class="list-title">我的订单</div>
+    <div class="list-title">我的借阅</div>
     <a-tabs default-active-key="1" @change="onTabChange">
       <a-tab-pane key="1" tab="全部">
       </a-tab-pane>
-      <a-tab-pane key="2" tab="待付款">
+      <a-tab-pane key="2" tab="在借">
       </a-tab-pane>
-      <a-tab-pane key="3" tab="已支付">
+      <a-tab-pane key="3" tab="已还">
       </a-tab-pane>
     </a-tabs>
     <div class="list-content">
-      <div class="order-item-view" v-for="(item, index) in orderData" :key="index">
+      <div class="order-item-view" v-for="(item, index) in borrowData" :key="index">
         <div class="header flex-view">
           <div class="left">
-            <span class="text">订单号</span>
+            <span class="text">序号</span>
             <span class="num mg-4">#</span>
-            <span class="num">{{item.orderNumber}}</span>
+            <span class="num">{{item.id}}</span>
             <span class="time">{{getFormatTime(item.orderTime, true)}}</span>
           </div>
           <div class="right">
             <a-popconfirm
-              v-if="item.status==='1'"
-              title="确定取消订单？"
-              ok-text="是"
-              cancel-text="否"
-              @confirm="handleCancel(item)"
+                v-if="item.status==='1'"
+                title="确定还书？"
+                ok-text="是"
+                cancel-text="否"
+                @confirm="handleReturn(item)"
             >
-              <a-button type="primary" size="small" style="margin-right: 24px;">取消</a-button>
+              <a-button type="primary" size="small" style="margin-right: 24px;">还书</a-button>
             </a-popconfirm>
-            <span class="text">订单状态</span>
-            <span class="state">{{item.status==='1'? '待支付': item.status === '2'? '已支付':'已取消'}}</span>
+            <a-popconfirm
+                v-if="item.status==='1'"
+                title="确定延期？"
+                ok-text="是"
+                cancel-text="否"
+                @confirm="handleDelay(item)"
+            >
+              <a-button size="small" style="margin-right: 24px;">延期</a-button>
+            </a-popconfirm>
+            <span class="text">图书状态</span>
+            <span class="state">{{item.status==='1'? '在借': item.status === '2'? '已还':'--'}}</span>
           </div>
         </div>
         <div class="content flex-view">
@@ -39,23 +48,17 @@
               <div class="detail flex-between flex-view">
                 <div class="flex-between flex-top flex-view">
                   <h2 class="name">{{item.title}}</h2>
-                  <span class="count">x{{item.count}}</span>
-                </div>
-                <div class="flex-between flex-center flex-view">
-                  <span class="type"></span>
-                  <span class="price">¥{{item.price}}</span>
+                  <span class="count">{{item.author}}</span>
                 </div>
               </div>
             </div>
           </div>
           <div class="right-info">
-            <p class="title">收货信息</p>
-            <p class="name">{{item.receiverName}}{{item.receiverPhone}}
+            <p class="title">借阅人</p>
+            <p class="name">{{item.username}}
             </p>
-            <p class="text mg">{{item.receiverAddress}}
-            </p>
-            <p class="title">快递单号</p>
-            <p class="text">
+            <p class="title">应还时间</p>
+            <p class="text">{{getFormatTime(item.expectTime, true)}}
             </p>
             <p class="title">备注信息</p>
             <p class="text">{{item.remark}}
@@ -64,16 +67,7 @@
         </div>
         <div class="bottom flex-view">
           <div class="left">
-            <span class="text">共{{item.count}}件商品</span>
-            <span class="open" @click="handleDetail(item.thingId)">商品详情</span>
-          </div>
-          <div class="right flex-view">
-            <span class="text">总计</span>
-            <span class="num">¥ {{item.price * item.count}}</span>
-            <span class="text">优惠</span>
-            <span class="num">¥0</span>
-            <span class="text">实际支付</span>
-            <span class="money">¥ {{item.price * item.count}}</span>
+            <span class="open" @click="handleDetail(item.thingId)">图书详情</span>
           </div>
         </div>
       </div>
@@ -84,8 +78,7 @@
 <script setup>
 import {message} from "ant-design-vue";
 import {getFormatTime} from '/@/utils/'
-import {userOrderListApi} from '/@/api/order'
-import {cancelUserOrderApi} from '/@/api/order'
+import {userBorrowListApi, returnUserBorrowApi, delayUserBorrowApi} from '/@/api/borrow'
 import {BASE_URL} from "/@/store/constants";
 import {useUserStore} from "/@/store";
 
@@ -94,36 +87,36 @@ const route = useRoute();
 const userStore = useUserStore();
 
 const loading = ref(false)
-const orderData = ref([])
-const orderStatus = ref('')
+const borrowData = ref([])
+const borrowStatus = ref('')
 
 onMounted(()=>{
-  getOrderList()
+  getDataList()
 })
 
 const onTabChange =(key)=> {
   console.log(key)
   if (key === '1') {
-    orderStatus.value = ''
+    borrowStatus.value = ''
   }
   if (key === '2') {
-    orderStatus.value = '1'
+    borrowStatus.value = '1'
   }
   if (key === '3') {
-    orderStatus.value = '2'
+    borrowStatus.value = '2'
   }
-  getOrderList()
+  getDataList()
 }
-const getOrderList= ()=> {
+const getDataList= ()=> {
   loading.value = true
   let userId = userStore.user_id
-  userOrderListApi({userId: userId, status: orderStatus.value}).then(res => {
+  userBorrowListApi({userId: userId, status: borrowStatus.value}).then(res => {
     res.data.forEach((item, index) => {
       if (item.cover) {
         item.cover = BASE_URL + '/api/staticfiles/image/' + item.cover
       }
     })
-    orderData.value = res.data
+    borrowData.value = res.data
     loading.value = false
   }).catch(err => {
     console.log(err)
@@ -135,14 +128,25 @@ const handleDetail =(thingId) =>{
   let text = router.resolve({name: 'detail', query: {id: thingId}})
   window.open(text.href, '_blank')
 }
-const handleCancel =(item)=> {
-  cancelUserOrderApi({
+const handleReturn =(item)=> {
+  returnUserBorrowApi({
     id: item.id
   }).then(res => {
-    message.success('取消成功')
-    getOrderList()
+    message.success('还书成功')
+    getDataList()
   }).catch(err => {
-    message.error(err.msg || '取消失败')
+    message.error(err.msg || '操作失败')
+  })
+}
+
+const handleDelay =(item)=> {
+  delayUserBorrowApi({
+    id: item.id
+  }).then(res => {
+    message.success('延期成功')
+    getDataList()
+  }).catch(err => {
+    message.error(err.msg || '操作失败')
   })
 }
 
