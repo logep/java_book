@@ -41,4 +41,9 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow> impleme
     public List<Borrow> getUserBorrowList(String userId) {
         return mapper.getUserBorrowList(userId);
     }
+
+    @Override
+    public Borrow detail(Long id) {
+        return mapper.selectById(id);
+    }
 }

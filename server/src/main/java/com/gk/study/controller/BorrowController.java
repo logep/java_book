@@ -1,5 +1,6 @@
 package com.gk.study.controller;
 
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.gk.study.common.APIResponse;
 import com.gk.study.common.ResponeCode;
 import com.gk.study.entity.Borrow;
@@ -33,7 +34,7 @@ public class BorrowController {
         return new APIResponse(ResponeCode.SUCCESS, "查询成功", list);
     }
 
-    // 用户订单
+    // 用户list
     @RequestMapping(value = "/userBorrowList", method = RequestMethod.GET)
     public APIResponse userBorrowList(String userId){
         List<Borrow> list =  service.getUserBorrowList(userId);
@@ -43,8 +44,16 @@ public class BorrowController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @Transactional
     public APIResponse create(Borrow borrow) throws IOException {
-        service.createBorrow(borrow);
-        return new APIResponse(ResponeCode.SUCCESS, "创建成功");
+        long expectTime = System.currentTimeMillis() + (long) 30 * 24 * 60 * 60 * 1000;
+        borrow.setExpectTime(String.valueOf(expectTime));
+        borrow.setStatus("1"); // 在借
+        borrow.setHasDelayed("0"); // 没延期
+        if(StringUtils.isNotBlank(borrow.getThingId()) && StringUtils.isNotBlank(borrow.getUserId())){
+            service.createBorrow(borrow);
+            return new APIResponse(ResponeCode.SUCCESS, "创建成功");
+        }else {
+            return new APIResponse(ResponeCode.FAIL, "参数错误");
+        }
     }
 
     @Access(level = AccessLevel.ADMIN)
@@ -64,21 +73,59 @@ public class BorrowController {
     @RequestMapping(value = "/returnBorrow", method = RequestMethod.POST)
     @Transactional
     public APIResponse returnBorrow(Long id) throws IOException {
-        Borrow borrow = new Borrow();
-        borrow.setId(id);
-        borrow.setStatus("2"); // 2=还
-        service.updateBorrow(borrow);
-        return new APIResponse(ResponeCode.SUCCESS, "操作成功");
+        Borrow dbBorrow = service.detail(id);
+        if(dbBorrow.getStatus().equals("2")){
+            return new APIResponse(ResponeCode.FAIL, "已经还过了");
+        } else {
+            dbBorrow.setStatus("2");
+            dbBorrow.setReturnTime(String.valueOf(System.currentTimeMillis()));
+            service.updateBorrow(dbBorrow);
+            return new APIResponse(ResponeCode.SUCCESS, "操作成功");
+        }
     }
 
     @Access(level = AccessLevel.LOGIN)
     @RequestMapping(value = "/returnUserBorrow", method = RequestMethod.POST)
     @Transactional
     public APIResponse returnUserBorrow(Long id) throws IOException {
-        Borrow borrow = new Borrow();
-        borrow.setId(id);
-        borrow.setStatus("2");
-        service.updateBorrow(borrow);
+        Borrow dbBorrow = service.detail(id);
+        if(dbBorrow.getStatus().equals("2")){
+            return new APIResponse(ResponeCode.FAIL, "已经还过了");
+        } else {
+            dbBorrow.setStatus("2");
+            dbBorrow.setReturnTime(String.valueOf(System.currentTimeMillis()));
+            service.updateBorrow(dbBorrow);
+            return new APIResponse(ResponeCode.SUCCESS, "操作成功");
+        }
+    }
+
+    @Access(level = AccessLevel.ADMIN)
+    @RequestMapping(value = "/delayBorrow", method = RequestMethod.POST)
+    @Transactional
+    public APIResponse delayBorrow(Long id) throws IOException {
+        Borrow dbBorrow = service.detail(id);
+        if(dbBorrow.getHasDelayed().equals("1")){
+            return new APIResponse(ResponeCode.FAIL, "已经延期过了");
+        }
+        dbBorrow.setHasDelayed("1");
+        long expectTime = Long.parseLong(dbBorrow.getExpectTime()) + (long) 30 * 24 * 60 * 60 * 1000;
+        dbBorrow.setExpectTime(String.valueOf(expectTime));
+        service.updateBorrow(dbBorrow);
+        return new APIResponse(ResponeCode.SUCCESS, "操作成功");
+    }
+
+    @Access(level = AccessLevel.LOGIN)
+    @RequestMapping(value = "/delayUserBorrow", method = RequestMethod.POST)
+    @Transactional
+    public APIResponse delayUserBorrow(Long id) throws IOException {
+        Borrow dbBorrow = service.detail(id);
+        if(dbBorrow.getHasDelayed().equals("1")){
+            return new APIResponse(ResponeCode.FAIL, "已经延期过了");
+        }
+        dbBorrow.setHasDelayed("1");
+        long expectTime = Long.valueOf(dbBorrow.getExpectTime()) + (long) 30 * 24 * 60 * 60 * 1000;
+        dbBorrow.setExpectTime(String.valueOf(expectTime));
+        service.updateBorrow(dbBorrow);
         return new APIResponse(ResponeCode.SUCCESS, "操作成功");
     }
 

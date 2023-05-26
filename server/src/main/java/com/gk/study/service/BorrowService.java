@@ -13,4 +13,6 @@ public interface BorrowService {
     void updateBorrow(Borrow borrow);
 
     List<Borrow> getUserBorrowList(String userId);
+
+    Borrow detail(Long id);
 }

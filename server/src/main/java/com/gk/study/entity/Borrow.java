@@ -26,7 +26,7 @@ public class Borrow implements Serializable {
     @TableField
     public String userId;
     @TableField
-    public String delayed;
+    public String hasDelayed;
 
     @TableField(exist = false)
     public String username; // 用户名
